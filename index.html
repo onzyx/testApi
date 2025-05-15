@@ -21,7 +21,7 @@
         .header h1 { margin: 0; font-size: 1.8em; }
         .menu-toggle { background: none; border: none; font-size: 1.8em; cursor: pointer; color: var(--text-muted); padding: 5px 10px; line-height: 1; }
         .menu-toggle:hover { color: var(--text-color); }
-        .menu-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px; box-shadow: 0 4px 12px rgba(27, 31, 35, .15); z-index: 10; min-width: 180px; padding: 5px 0; max-height: 80vh; overflow-y: auto; } /* Tambah scroll jika menu panjang */
+        .menu-dropdown { display: none; position: absolute; top: 100%; right: 0; background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 6px; box-shadow: 0 4px 12px rgba(27, 31, 35, .15); z-index: 10; min-width: 180px; padding: 5px 0; max-height: 80vh; overflow-y: auto; }
         .menu-dropdown.active { display: block; }
         .menu-item { display: block; padding: 8px 16px; color: var(--text-color); text-decoration: none; cursor: pointer; white-space: nowrap; }
         .menu-item:hover { background-color: #f6f8fa; }
@@ -82,17 +82,15 @@
         .yt-info .download-link a:hover{filter:brightness(90%)}
         .waifu-image-result{text-align:center;padding:10px}
         .waifu-image-result img{max-width:100%;height:auto;display:block;margin:15px auto;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,.1)}
-        /* Styling Info Card (Anime/Manga) */
         .info-result-card { display: flex; gap: 20px; flex-wrap: wrap; }
         .info-result-card .info-image { flex-shrink: 0; }
-        .info-result-card .info-image img { width: 100px; /* Ukuran gambar anime/manga */ height: auto; border-radius: 4px; display: block; }
+        .info-result-card .info-image img { width: 100px; height: auto; border-radius: 4px; display: block; }
         .info-result-card .info-details { flex: 1; min-width: 250px; }
-        .info-result-card .info-details h4 { margin-top: 0; margin-bottom: 10px; font-size: 1.3em; color: var(--info-color); /* Warna info */ }
+        .info-result-card .info-details h4 { margin-top: 0; margin-bottom: 10px; font-size: 1.3em; color: var(--info-color); }
         .info-result-card .info-details p { margin: 5px 0; font-size: 0.95em; line-height: 1.5; color: var(--text-muted); }
         .info-result-card .info-details p strong { color: var(--text-color); margin-right: 5px; }
-        .info-result-card .info-details .synopsis { margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 10px; font-size: 0.9em; max-height: 150px; /* Batasi tinggi sinopsis */ overflow-y: auto; /* Tambah scroll jika panjang */ }
+        .info-result-card .info-details .synopsis { margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 10px; font-size: 0.9em; max-height: 150px; overflow-y: auto; }
         .info-result-card .info-details .mal-link a { color: var(--link-color); font-weight: 600; }
-
         @media (max-width:600px){.ml-profile-result,.profile-card,.waifu-image-result,.yt-result-card, .info-result-card{flex-direction:column;align-items:center;text-align:center}.profile-avatar img,.yt-thumbnail img, .info-result-card .info-image img{margin-bottom:10px}.profile-info,.yt-info, .info-result-card .info-details{min-width:unset;width:100%}.profile-stats{justify-content:space-around}}@media (max-width:450px){.header h1{font-size:1.4em}.menu-toggle{font-size:1.4em}#ml-separate-input-area .input-area{flex-direction:column;align-items:stretch}#ml-separate-input-area .input-area label{flex-basis:auto;text-align:left;margin-bottom:3px;margin-right:0;display:block}.ml-input-options label{display:block;margin-bottom:8px}}@media (max-width:400px){.input-section .input-area{flex-direction:column;align-items:stretch}.input-section .input-area input[type=text],.input-section .input-area input[type=number],.input-section .input-area select,.input-section .input-area label{width:100%;box-sizing:border-box;text-align:left;margin-right:0;margin-bottom:5px}.input-section .input-area label{margin-bottom:2px}.input-section .fetch-button{width:100%}.profile-stats{flex-direction:column;gap:15px;align-items:center}}
     </style>
 </head>
@@ -109,7 +107,9 @@
                 <a href="#" class="menu-item" id="menu-ytmp3">YT MP3 Downloader</a>
                 <a href="#" class="menu-item" id="menu-ytmp4">YT MP4 Downloader</a>
                 <a href="#" class="menu-item" id="menu-randomwaifu">Random Waifu</a>
-                <a href="#" class="menu-item" id="menu-mangainfo">Manga Info</a> <a href="#" class="menu-item" id="menu-animeinfo">Anime Info</a> </div>
+                <a href="#" class="menu-item" id="menu-mangainfo">Manga Info</a>
+                <a href="#" class="menu-item" id="menu-animeinfo">Anime Info</a>
+            </div>
         </div>
         <p class="powered-by">Powered by api.ryzumi.vip</p>
 
@@ -117,49 +117,36 @@
              <div class="input-area"> <input type="text" id="github-username-input" placeholder="Masukkan username GitHub..." aria-label="Username GitHub"> </div>
              <button id="fetch-github-button" class="fetch-button">Cari Profil GitHub</button>
         </div>
-
         <div id="ml-input-section" class="input-section">
              <div class="ml-input-options"> <strong>Cara Input ID:</strong><br> <input type="radio" name="ml-input-type" value="combined" id="ml-combined-radio" checked> <label for="ml-combined-radio">ID Gabung</label> <input type="radio" name="ml-input-type" value="separate" id="ml-separate-radio"> <label for="ml-separate-radio">ID Pisah</label> </div>
              <div id="ml-combined-input-area" class="active"> <div class="input-area"> <input type="text" id="ml-combined-input" placeholder="Contoh: 729810489 (8911) atau 729810489 8911" aria-label="User ID dan Zone ID Gabungan"> </div> </div>
              <div id="ml-separate-input-area"> <div class="input-area"> <label for="ml-user-id-input">User ID:</label> <input type="number" id="ml-user-id-input" placeholder="Masukkan User ID" aria-label="User ID Mobile Legends"> </div> <div class="input-area"> <label for="ml-zone-id-input">Zone ID:</label> <input type="number" id="ml-zone-id-input" placeholder="Masukkan Zone ID" aria-label="Zone ID Mobile Legends"> </div> </div>
              <button id="fetch-ml-button" class="fetch-button ml-button">Cari Akun ML</button>
         </div>
-
         <div id="ytmp3-section" class="input-section">
              <div class="input-area"> <input type="text" id="ytmp3-url-input" placeholder="Masukkan URL YouTube..." aria-label="URL YouTube"> </div>
              <button id="fetch-ytmp3-button" class="fetch-button downloader-button">Download MP3</button>
         </div>
-
         <div id="ytmp4-section" class="input-section">
              <div class="input-area"> <label for="ytmp4-url-input">URL:</label> <input type="text" id="ytmp4-url-input" placeholder="Masukkan URL YouTube..." aria-label="URL YouTube"> </div>
              <div class="input-area"> <label for="ytmp4-quality-input">Kualitas:</label> <input type="number" id="ytmp4-quality-input" placeholder="Angka (Misal: 720, 1080)" aria-label="Kualitas Video (Opsional)"> </div>
              <button id="fetch-ytmp4-button" class="fetch-button downloader-button">Download MP4</button>
         </div>
-
         <div id="randomwaifu-section" class="input-section">
              <p>Pilih tag untuk menampilkan gambar waifu SFW (Safe For Work).</p>
              <div class="input-area"> <label for="waifu-tag-select">Pilih Tag:</label> <select id="waifu-tag-select"> <option value="" disabled selected>-- Pilih Tag Waifu --</option> <option value="awoo">awoo</option> <option value="bite">bite</option> <option value="blush">blush</option> <option value="bonk">bonk</option> <option value="bully">bully</option> <option value="cringe">cringe</option> <option value="cry">cry</option> <option value="cuddle">cuddle</option> <option value="dance">dance</option> <option value="glomp">glomp</option> <option value="handhold">handhold</option> <option value="happy">happy</option> <option value="highfive">highfive</option> <option value="hug">hug</option> <option value="kick">kick</option> <option value="kill">kill</option> <option value="kiss">kiss</option> <option value="lick">lick</option> <option value="megumin">megumin</option> <option value="neko">neko</option> <option value="nom">nom</option> <option value="pat">pat</option> <option value="poke">poke</option> <option value="shinobu">shinobu</option> <option value="slap">slap</option> <option value="smile">smile</option> <option value="smug">smug</option> <option value="wave">wave</option> <option value="waifu">waifu</option> <option value="wink">wink</option> <option value="yeet">yeet</option> </select> </div>
              <button id="fetch-waifu-button" class="fetch-button weebs-button">Tampilkan Waifu!</button>
         </div>
-
         <div id="mangainfo-section" class="input-section">
             <p>Cari informasi detail tentang manga.</p>
-            <div class="input-area">
-                <label for="manga-query-input">Judul Manga:</label>
-                <input type="text" id="manga-query-input" placeholder="Masukkan judul manga..." aria-label="Judul Manga">
-            </div>
+            <div class="input-area"> <label for="manga-query-input">Judul Manga:</label> <input type="text" id="manga-query-input" placeholder="Masukkan judul manga..." aria-label="Judul Manga"> </div>
             <button id="fetch-manga-button" class="fetch-button weebs-button">Cari Info Manga</button>
         </div>
-
         <div id="animeinfo-section" class="input-section">
             <p>Cari informasi detail tentang anime.</p>
-            <div class="input-area">
-                <label for="anime-query-input">Judul Anime:</label>
-                <input type="text" id="anime-query-input" placeholder="Masukkan judul anime..." aria-label="Judul Anime">
-            </div>
+            <div class="input-area"> <label for="anime-query-input">Judul Anime:</label> <input type="text" id="anime-query-input" placeholder="Masukkan judul anime..." aria-label="Judul Anime"> </div>
             <button id="fetch-anime-button" class="fetch-button weebs-button">Cari Info Anime</button>
         </div>
-
 
         <div class="message-area"> <p id="loading-message" style="display: none;">Lagi proses...</p> <p id="error-message" style="display: none;"></p> </div>
         <div id="profile-output"> <p>Pilih fitur dari menu (☰) atau langsung gunakan Stalk GitHub.</p> </div>
@@ -168,7 +155,7 @@
     <script>
         // --- JavaScript Logic ---
 
-        // Ambil Elemen DOM (Tambahkan Manga & Anime)
+        // Ambil Elemen DOM
         const menuButton = document.getElementById('menu-button');
         const menuDropdown = document.getElementById('menu-dropdown');
         const menuItems = document.querySelectorAll('#menu-dropdown .menu-item');
@@ -177,11 +164,11 @@
         const ytmp3Section = document.getElementById('ytmp3-section');
         const ytmp4Section = document.getElementById('ytmp4-section');
         const randomwaifuSection = document.getElementById('randomwaifu-section');
-        const mangaInfoSection = document.getElementById('mangainfo-section'); // <-- Manga Section
-        const animeInfoSection = document.getElementById('animeinfo-section'); // <-- Anime Section
-        const allInputSections = [githubSection, mlSection, ytmp3Section, ytmp4Section, randomwaifuSection, mangaInfoSection, animeInfoSection]; // <-- Tambah sections baru
+        const mangaInfoSection = document.getElementById('mangainfo-section');
+        const animeInfoSection = document.getElementById('animeinfo-section');
+        const allInputSections = [githubSection, mlSection, ytmp3Section, ytmp4Section, randomwaifuSection, mangaInfoSection, animeInfoSection];
 
-        // Elemen input & tombol (Tambahkan Manga & Anime)
+        // Elemen input & tombol
         const githubUsernameInput = document.getElementById('github-username-input');
         const fetchGithubButton = document.getElementById('fetch-github-button');
         const mlInputTypeRadios = document.querySelectorAll('input[name="ml-input-type"]');
@@ -198,11 +185,10 @@
         const fetchYtmp4Button = document.getElementById('fetch-ytmp4-button');
         const waifuTagSelect = document.getElementById('waifu-tag-select');
         const fetchWaifuButton = document.getElementById('fetch-waifu-button');
-        const mangaQueryInput = document.getElementById('manga-query-input'); // <-- Manga Input
-        const fetchMangaButton = document.getElementById('fetch-manga-button'); // <-- Manga Button
-        const animeQueryInput = document.getElementById('anime-query-input'); // <-- Anime Input
-        const fetchAnimeButton = document.getElementById('fetch-anime-button'); // <-- Anime Button
-
+        const mangaQueryInput = document.getElementById('manga-query-input');
+        const fetchMangaButton = document.getElementById('fetch-manga-button');
+        const animeQueryInput = document.getElementById('anime-query-input');
+        const fetchAnimeButton = document.getElementById('fetch-anime-button');
         const profileOutput = document.getElementById('profile-output');
         const loadingMessage = document.getElementById('loading-message');
         const errorMessage = document.getElementById('error-message');
@@ -216,214 +202,79 @@
         function formatDate(isoString) { if (!isoString) return 'N/A'; try { const date = new Date(isoString); const options = { year: 'numeric', month: 'long', day: 'numeric' }; return date.toLocaleDateString('id-ID', options); } catch (e) { console.error("Error formatting date:", e); return isoString; } }
         function showLoading(fetchButton) { loadingMessage.style.display = 'block'; errorMessage.style.display = 'none'; profileOutput.innerHTML = ''; fetchButton.disabled = true; fetchButton.textContent = 'Memuat...'; canRequest = false; }
         function hideLoading(fetchButton, originalText) { loadingMessage.style.display = 'none'; fetchButton.textContent = 'Tunggu 5s...'; console.log("Request selesai, memulai jeda 5 detik..."); setTimeout(() => { canRequest = true; fetchButton.disabled = false; fetchButton.textContent = originalText; console.log("Jeda 5 detik selesai, siap request berikutnya."); }, requestDelay); }
-        function showError(message) { errorMessage.textContent = message; errorMessage.style.display = 'block'; profileOutput.innerHTML = `<p style="color: var(--error-color); font-weight: bold;">${message}</p>`; /* Tampilkan error juga di output */ }
-        function escapeHtml(unsafe) { return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;"); } // Fungsi kecil untuk security
+        function showError(message) { errorMessage.textContent = message; errorMessage.style.display = 'block'; profileOutput.innerHTML = `<p style="color: var(--error-color); font-weight: bold;">${escapeHtml(message)}</p>`; } // Escape message di sini
+        function escapeHtml(unsafe) { // Fungsi escapeHtml yang lebih aman
+             return String(unsafe === null || typeof unsafe === 'undefined' ? '' : unsafe)
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
 
         // --- Fungsi Display ---
-        function displayGithubProfile(data) { /* ... (Sama) ... */ }
-        function displayMlProfile(data) { /* ... (Sama) ... */ }
-        function displayYtMp3Result(data) { /* ... (Sama) ... */ }
-        function displayYtMp4Result(data) { /* ... (Sama) ... */ }
-        function displayWaifuImage(imageUrl, selectedTag = 'waifu') { /* ... (Sama) ... */ }
+        function displayGithubProfile(data) { const name = data.name || `<span class="placeholder">(Nama tidak diisi)</span>`; const bio = data.bio || `<span class="placeholder">(Bio tidak diisi)</span>`; const loc = data.location ? `<p class="detail-item"><strong>Lokasi:</strong> ${escapeHtml(data.location)}</p>` : `<p class="detail-item placeholder"><strong>Lokasi:</strong> (Tidak diinfo)</p>`; const comp = data.company ? `<p class="detail-item"><strong>Perusahaan:</strong> ${escapeHtml(data.company)}</p>` : `<p class="detail-item placeholder"><strong>Perusahaan:</strong> (Tidak diinfo)</p>`; let blog = data.blog; if (blog && !blog.startsWith('http://') && !blog.startsWith('https://')) { blog = 'http://' + blog; } const blogEl = data.blog ? `<p class="detail-item"><strong>Website:</strong> <a href="${escapeHtml(blog)}" target="_blank" rel="noopener noreferrer">${escapeHtml(data.blog)}</a></p>` : `<p class="detail-item placeholder"><strong>Website:</strong> (Tidak ada)</p>`; const tw = data.twitter_username ? `<p class="detail-item"><strong>Twitter:</strong> <a href="https://twitter.com/${escapeHtml(data.twitter_username)}" target="_blank" rel="noopener noreferrer">@${escapeHtml(data.twitter_username)}</a></p>` : ''; const h = `<div class="profile-card"><div class="profile-avatar"> <img src="${escapeHtml(data.avatar_url)}" alt="Avatar ${escapeHtml(data.login)}"> </div><div class="profile-info"> <h2>${name}</h2> <span class="login-name">@${escapeHtml(data.login)}</span> <a href="${escapeHtml(data.html_url)}" target="_blank" rel="noopener noreferrer" class="github-link"> Lihat Profil di GitHub </a> <p class="bio">${bio}</p> ${loc} ${comp} ${blogEl} ${tw} </div><div class="profile-stats"> <div class="stat-item"> <span>${data.public_repos !== null ? data.public_repos : '?'}</span> Repo Publik </div> <div class="stat-item"> <span>${data.followers !== null ? data.followers : '?'}</span> Pengikut </div> <div class="stat-item"> <span>${data.following !== null ? data.following : '?'}</span> Mengikuti </div> </div><div class="profile-details"> <p><strong>ID:</strong> ${data.id || 'N/A'}</p> <p><strong>Bergabung pada:</strong> ${formatDate(data.created_at)}</p> <p><strong>Update terakhir:</strong> ${formatDate(data.updated_at)}</p> </div></div>`; profileOutput.innerHTML = h; }
+        function displayMlProfile(data) { console.log("Menampilkan profil ML:", data); const h = `<div class="ml-profile-result"> <h3>Hasil Stalk Mobile Legends</h3> <p>Username: <span>${escapeHtml(data.username || '(Tidak Ditemukan)')}</span></p> <p>Region: <span>${escapeHtml(data.region || 'N/A')}</span></p> <p style="font-size: 0.8em; color: var(--text-muted);">(${data.success ? 'Sukses' : 'Gagal'})</p> </div>`; profileOutput.innerHTML = h; }
+        function displayYtMp3Result(data) { console.log("Menampilkan hasil YT MP3:", data); const dur = (s) => { if (!s || typeof s !== 'number') return 'N/A'; const m = Math.floor(s / 60); const rs = s % 60; return `${m}:${rs < 10 ? '0' : ''}${rs}`; }; const h = `<div class="yt-result-card"> <div class="yt-thumbnail"> ${data.thumbnail ? `<img src="${escapeHtml(data.thumbnail)}" alt="Thumbnail">` : ''} </div> <div class="yt-info"> <h4>${escapeHtml(data.title || 'Judul Tidak Tersedia')}</h4> <p><strong>Author:</strong> ${escapeHtml(data.author || 'N/A')} ${data.authorUrl ? `(<a href="${escapeHtml(data.authorUrl)}" target="_blank" rel="noopener noreferrer">Channel</a>)` : ''}</p> <p><strong>Durasi:</strong> ${dur(data.lengthSeconds)}</p> <p><strong>Views:</strong> ${data.views ? data.views.toLocaleString('id-ID') : 'N/A'}</p> <p><strong>Upload:</strong> ${escapeHtml(data.uploadDate || 'N/A')}</p> ${data.description ? `<p><strong>Deskripsi:</strong> ${escapeHtml(data.description).substring(0, 100)}...</p>` : ''} ${data.url ? `<p class="download-link"><a href="${escapeHtml(data.url)}" download target="_blank" rel="noopener noreferrer">Download MP3 (${escapeHtml(data.quality || 'Format tdk diketahui')})</a></p>` : '<p><strong>Link download tidak tersedia.</strong></p>'} ${data.videoUrl ? `<p><a href="${escapeHtml(data.videoUrl)}" target="_blank" rel="noopener noreferrer">Lihat Video Asli</a></p>`:''} </div> </div>`; profileOutput.innerHTML = h; }
+        function displayYtMp4Result(data) { console.log("Menampilkan hasil YT MP4:", data); const dur = (s) => { if (!s || typeof s !== 'number') return 'N/A'; const m = Math.floor(s / 60); const rs = s % 60; return `${m}:${rs < 10 ? '0' : ''}${rs}`; }; const h = `<div class="yt-result-card"> <div class="yt-thumbnail"> ${data.thumbnail ? `<img src="${escapeHtml(data.thumbnail)}" alt="Thumbnail">` : ''} </div> <div class="yt-info"> <h4>${escapeHtml(data.title || 'Judul Tidak Tersedia')}</h4> <p><strong>Author:</strong> ${escapeHtml(data.author || 'N/A')} ${data.authorUrl ? `(<a href="${escapeHtml(data.authorUrl)}" target="_blank" rel="noopener noreferrer">Channel</a>)` : ''}</p> <p><strong>Durasi:</strong> ${dur(data.lengthSeconds)}</p> <p><strong>Views:</strong> ${data.views ? data.views.toLocaleString('id-ID') : 'N/A'}</p> <p><strong>Upload:</strong> ${escapeHtml(data.uploadDate || 'N/A')}</p> ${data.description ? `<p><strong>Deskripsi:</strong> ${escapeHtml(data.description).substring(0, 100)}...</p>` : ''} ${data.url ? `<p class="download-link"><a href="${escapeHtml(data.url)}" download target="_blank" rel="noopener noreferrer">Download MP4 (${escapeHtml(data.quality || 'Format tdk diketahui')})</a></p>` : '<p><strong>Link download tidak tersedia.</strong></p>'} ${data.videoUrl ? `<p><a href="${escapeHtml(data.videoUrl)}" target="_blank" rel="noopener noreferrer">Lihat Video Asli</a></p>`:''} </div> </div>`; profileOutput.innerHTML = h; }
+        function displayWaifuImage(imageUrl, selectedTag = 'waifu') { console.log("Menampilkan gambar waifu:", imageUrl); const h = `<div class="waifu-image-result"><img src="${escapeHtml(imageUrl)}" alt="Random Waifu: ${escapeHtml(selectedTag)}" loading="lazy"></div>`; profileOutput.innerHTML = h; const imgElement = profileOutput.querySelector('img'); if(imgElement) { imgElement.onerror = () => { showError(`Gagal memuat gambar waifu dari: ${escapeHtml(imageUrl)}`); profileOutput.innerHTML = '<p>Gagal memuat gambar.</p>'; }; } }
+        function displayMangaInfo(data) { console.log("Menampilkan Info Manga:", data); const f = (l, v) => v||0===v ? `<p><strong>${l}:</strong> ${escapeHtml(String(v))}</p>` : `<p><strong>${l}:</strong> N/A</p>`; const fl = (l, u, t) => u ? `<p><strong>${l}:</strong> <a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(t)}</a></p>` : ''; const h = `<div class="info-result-card"><div class="info-details"><h4>${escapeHtml(data.title || 'Judul Tidak Diketahui')}</h4>${f('Tipe', data.type)}${f('Status', data.status)}${f('Genre', data.genre)}${f('Chapters', data.chapters)}${f('Volumes', data.volumes)}${f('Skor', data.score)}${f('Rank', data.rank)}${f('Popularitas', data.popularity)}${f('Members', data.members?.toLocaleString('id-ID'))}${f('Favorites', data.favorites?.toLocaleString('id-ID'))}${fl('Link MAL', data.url, 'Lihat di MyAnimeList')}${data.synopsis ? `<div class="synopsis"><p><strong>Sinopsis:</strong></p><p>${escapeHtml(data.synopsis).replace(/\n/g, '<br>')}</p></div>` : ''}${data.background ? `<div class="synopsis"><p><strong>Background:</strong></p><p>${escapeHtml(data.background).replace(/\n/g, '<br>')}</p></div>` : ''}</div></div>`; profileOutput.innerHTML = h; }
+        function displayAnimeInfo(data) { console.log("Menampilkan Info Anime:", data); const f = (l, v) => v||0===v ? `<p><strong>${l}:</strong> ${escapeHtml(String(v))}</p>` : `<p><strong>${l}:</strong> N/A</p>`; const fl = (l, u, t) => u ? `<p><strong>${l}:</strong> <a href="${escapeHtml(u)}" target="_blank" rel="noopener noreferrer">${escapeHtml(t)}</a></p>` : ''; const iU = data.images?.jpg?.image_url || data.images?.webp?.image_url || null; const h = `<div class="info-result-card">${iU ? `<div class="info-image"><img src="${escapeHtml(iU)}" alt="Gambar ${escapeHtml(data.title || '')}" loading="lazy"></div>` : ''}<div class="info-details"><h4>${escapeHtml(data.title || 'Judul Tidak Diketahui')}</h4>${f('Tipe', data.type)}${f('Status', data.status)}${f('Genre', data.genres)}${f('Skor', data.score)}${f('Members', data.members?.toLocaleString('id-ID'))}${f('Favorites', data.favorites?.toLocaleString('id-ID'))}${fl('Link MAL', data.url, 'Lihat di MyAnimeList')}${data.synopsis ? `<div class="synopsis"><p><strong>Sinopsis:</strong></p><p>${escapeHtml(data.synopsis).replace(/\n/g, '<br>')}</p></div>` : ''}</div></div>`; profileOutput.innerHTML = h; }
 
-        // Fungsi Baru untuk Menampilkan Info Manga
-        function displayMangaInfo(data) {
-            console.log("Menampilkan Info Manga:", data);
-            // Fungsi helper kecil untuk menampilkan data atau 'N/A'
-            const formatInfo = (label, value) => value ? `<p><strong>${label}:</strong> ${escapeHtml(String(value))}</p>` : `<p><strong>${label}:</strong> N/A</p>`;
-            const formatLink = (label, url, text) => url ? `<p><strong>${label}:</strong> <a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(text)}</a></p>` : '';
+        // --- Fungsi Fetch API ---
+        async function fetchGithubData() { if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; } const username = githubUsernameInput.value.trim(); if (!username) { showError("Username GitHub jangan kosong!"); return; } const originalButtonText = fetchGithubButton.textContent; showLoading(fetchGithubButton); const apiUrl = `https://api.ryzumi.vip/api/stalk/github?username=${username}`; try { const response = await fetch(apiUrl); if (!response.ok) { let e; try { e = await response.json(); } catch (t) {} let o = `Waduh, error ${response.status}!`; throw o += e && e.message ? ` Pesan: ${e.message}` : 404 === response.status ? `User "${username}" kayaknya nggak ketemu nih.` : ` Coba cek username atau API-nya lagi.`, new Error(o); } const data = await response.json(); if (!data || !data.login) throw new Error(`API ryzumi nggak ngasih data valid buat user "${username}".`); displayGithubProfile(data); } catch (error) { console.error("Gagal fetch GitHub:", error); showError(error.message || "Gagal ambil data GitHub."); } finally { hideLoading(fetchGithubButton, originalButtonText); } }
+        async function fetchMlData() { if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; } let userId, zoneId; const inputType = document.querySelector('input[name="ml-input-type"]:checked').value; if ('combined' === inputType) { const combinedValue = mlCombinedInput.value.trim(); if (!combinedValue) return void showError("Input ID Gabungan jangan kosong!"); const match = combinedValue.match(/(\d+)\s*\(?(\d+)\)?/); if (match && match[1] && match[2]) userId = match[1], zoneId = match[2]; else { const parts = combinedValue.split(/\s+/); if (2 !== parts.length || !/^\d+$/.test(parts[0]) || !/^\d+$/.test(parts[1])) return void showError("Format ID Gabungan salah. Contoh: 12345 (6789) atau 12345 6789"); userId = parts[0], zoneId = parts[1]; } } else { if (userId = mlUserIdInput.value.trim(), zoneId = mlZoneIdInput.value.trim(), !userId || !zoneId) return void showError("User ID dan Zone ID (pisah) jangan kosong!"); if (!/^\d+$/.test(userId) || !/^\d+$/.test(zoneId)) return void showError("User ID dan Zone ID harus angka!"); } console.log(`Requesting ML data for User ID: ${userId}, Zone ID: ${zoneId}`); const originalButtonText = fetchMlButton.textContent; showLoading(fetchMlButton); const apiUrl = `https://api.ryzumi.vip/api/stalk/mobile-legends?userId=${userId}&zoneId=${zoneId}`; try { const response = await fetch(apiUrl); const data = await response.json(); if (console.log("ML API Response:", data), !response.ok) { let e = `Error HTTP: ${response.status}`; throw e += data && data.message ? ` - ${data.message}` : ` - ${response.statusText||"(Status Text Kosong)"}`, new Error(e); } if (!data || !0 !== data.success) throw new Error(data.message || "Akun tidak ditemukan atau API error."); displayMlProfile(data); } catch (error) { console.error("Gagal fetch ML:", error); error instanceof SyntaxError ? showError("Gagal memproses respons dari server. Format tidak sesuai.") : showError(error.message || "Gagal ambil data Mobile Legends."); } finally { hideLoading(fetchMlButton, originalButtonText); } }
+        async function fetchYtMp3Data() { if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; } const youtubeUrl = ytmp3UrlInput.value.trim(); if (!youtubeUrl) { showError("URL YouTube jangan kosong!"); return; } const originalButtonText = fetchYtmp3Button.textContent; showLoading(fetchYtmp3Button); const apiUrl = `https://api.ryzumi.vip/api/downloader/ytmp3?url=${encodeURIComponent(youtubeUrl)}`; console.log("Memanggil API YT MP3:", apiUrl); try { const response = await fetch(apiUrl, { headers: { 'accept': 'application/json' } }); console.log("Respons dari API YT MP3:", response.status, response.statusText); if (!response.ok) { let e = `Gagal dari API (${response.status})`; try { const t = await response.json(); t && t.message && (e = t.message), console.error("API Error Data:", t); } catch (o) { try { const n = await response.text(); console.error("API Error Teks:", n), n && n.length < 500 && (e += `: ${n.substring(0,100)}`); } catch (r) {} } throw new Error(e); } const data = await response.json(); if (console.log("Data dari API YT MP3:", data), !data || !data.url || !data.title) throw new Error(data.message || "Respons API tidak sesuai format (tidak ada 'url' atau 'title')."); displayYtMp3Result(data); } catch (error) { console.error("Gagal fetch YT MP3:", error); error instanceof SyntaxError ? showError("Gagal memproses respons dari API. Formatnya bukan JSON.") : showError(error.message || "Gagal memproses permintaan download YT MP3."); } finally { hideLoading(fetchYtmp3Button, originalButtonText); } }
+        async function fetchYtMp4Data() { if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; } const youtubeUrl = ytmp4UrlInput.value.trim(); let quality = ytmp4QualityInput.value.trim(); if (!youtubeUrl) return void showError("URL YouTube jangan kosong!"); if (quality || (quality = "1080", console.log("Kualitas kosong, menggunakan default:", quality)), !/^\d+$/.test(quality)) return void showError("Kualitas harus berupa angka (contoh: 720, 1080)."); const originalButtonText = fetchYtmp4Button.textContent; showLoading(fetchYtmp4Button); const apiUrl = `https://api.ryzumi.vip/api/downloader/ytmp4?url=${encodeURIComponent(youtubeUrl)}&quality=${quality}`; console.log("Memanggil API YT MP4:", apiUrl); try { const response = await fetch(apiUrl, { headers: { accept: "application/json" } }); console.log("Respons dari API YT MP4:", response.status, response.statusText); if (!response.ok) { let e = `Gagal dari API (${response.status})`; try { const t = await response.json(); t && t.message && (e = t.message), console.error("API Error Data:", t); } catch (o) { try { const n = await response.text(); console.error("API Error Teks:", n), n && n.length < 500 && (e += `: ${n.substring(0,100)}`); } catch (r) {} } throw new Error(e); } const data = await response.json(); if (console.log("Data dari API YT MP4:", data), !data || !data.url || !data.title) throw new Error(data.message || "Respons API tidak sesuai format (tidak ada 'url' atau 'title')."); displayYtMp4Result(data); } catch (error) { console.error("Gagal fetch YT MP4:", error); error instanceof SyntaxError ? showError("Gagal memproses respons dari API MP4. Mungkin formatnya bukan JSON.") : showError(error.message || "Gagal memproses permintaan download YT MP4."); } finally { hideLoading(fetchYtmp4Button, originalButtonText); } }
+        async function fetchRandomWaifu() { if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; } const selectedTag = waifuTagSelect.value; if (!selectedTag) return void showError("Silakan pilih tag waifu terlebih dahulu!"); const originalButtonText = fetchWaifuButton.textContent; showLoading(fetchWaifuButton); const apiUrl = `https://api.ryzumi.vip/api/weebs/sfw-waifu?tag=${selectedTag}`; console.log("Memanggil API Random Waifu:", apiUrl); try { const response = await fetch(apiUrl, { headers: { accept: "application/json" } }); console.log("Respons dari API Random Waifu:", response.status, response.statusText); if (!response.ok) { let e = `Gagal ambil data waifu (${response.status})`; try { const t = await response.json(); t && t.message && (e = t.message); } catch (o) {} throw new Error(e); } const data = await response.json(); if (console.log("Data dari API Random Waifu:", data), !data || !data.url) throw new Error(data.message || "Respons API tidak valid (tidak ada 'url')."); displayWaifuImage(data.url, selectedTag); } catch (error) { console.error("Gagal fetch Random Waifu:", error); error instanceof SyntaxError ? showError("Gagal memproses respons dari API Waifu. Formatnya bukan JSON.") : showError(error.message || "Gagal mendapatkan gambar waifu."); } finally { hideLoading(fetchWaifuButton, originalButtonText); } }
+        async function fetchMangaInfo() { if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; } const query = mangaQueryInput.value.trim(); if (!query) { showError("Judul manga jangan kosong!"); return; } const originalButtonText = fetchMangaButton.textContent; showLoading(fetchMangaButton); const apiUrl = `https://api.ryzumi.vip/api/weebs/manga-info?query=${encodeURIComponent(query)}`; console.log("Memanggil API Manga Info:", apiUrl); try { const response = await fetch(apiUrl, { headers: { 'accept': 'application/json' } }); console.log("Respons dari API Manga Info:", response.status, response.statusText); if (!response.ok) { let e = `Gagal cari manga (${response.status})`; try { const t = await response.json(); t && t.message && (e = t.message); } catch (o) {} throw new Error(e); } const data = await response.json(); if (console.log("Data dari API Manga Info:", data), data && data.title && data.url) displayMangaInfo(data); else throw new Error(data.message || "Gagal mendapatkan info manga atau format respons tidak sesuai."); } catch (error) { console.error("Gagal fetch Manga Info:", error); error instanceof SyntaxError ? showError("Gagal memproses respons dari API Manga. Formatnya bukan JSON.") : showError(error.message || "Gagal mencari info manga."); } finally { hideLoading(fetchMangaButton, originalButtonText); } }
+        async function fetchAnimeInfo() { if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; } const query = animeQueryInput.value.trim(); if (!query) { showError("Judul anime jangan kosong!"); return; } const originalButtonText = fetchAnimeButton.textContent; showLoading(fetchAnimeButton); const apiUrl = `https://api.ryzumi.vip/api/weebs/anime-info?query=${encodeURIComponent(query)}`; console.log("Memanggil API Anime Info:", apiUrl); try { const response = await fetch(apiUrl, { headers: { 'accept': 'application/json' } }); console.log("Respons dari API Anime Info:", response.status, response.statusText); if (!response.ok) { let e = `Gagal cari anime (${response.status})`; try { const t = await response.json(); t && t.message && (e = t.message); } catch (o) {} throw new Error(e); } const data = await response.json(); if (console.log("Data dari API Anime Info:", data), data && data.title && data.url) displayAnimeInfo(data); else throw new Error(data.message || "Gagal mendapatkan info anime atau format respons tidak sesuai."); } catch (error) { console.error("Gagal fetch Anime Info:", error); error instanceof SyntaxError ? showError("Gagal memproses respons dari API Anime. Formatnya bukan JSON.") : showError(error.message || "Gagal mencari info anime."); } finally { hideLoading(fetchAnimeButton, originalButtonText); } }
 
-            const profileHTML = `
-                <div class="info-result-card">
-                    <div class="info-details">
-                        <h4>${escapeHtml(data.title || 'Judul Tidak Diketahui')}</h4>
-                        ${formatInfo('Tipe', data.type)}
-                        ${formatInfo('Status', data.status)}
-                        ${formatInfo('Genre', data.genre)}
-                        ${formatInfo('Chapters', data.chapters)}
-                        ${formatInfo('Volumes', data.volumes)}
-                        ${formatInfo('Skor', data.score)}
-                        ${formatInfo('Rank', data.rank)}
-                        ${formatInfo('Popularitas', data.popularity)}
-                        ${formatInfo('Members', data.members?.toLocaleString('id-ID'))}
-                        ${formatInfo('Favorites', data.favorites?.toLocaleString('id-ID'))}
-                        ${formatLink('Link MAL', data.url, 'Lihat di MyAnimeList')}
-                        ${data.synopsis ? `<div class="synopsis"><p><strong>Sinopsis:</strong></p><p>${escapeHtml(data.synopsis).replace(/\n/g, '<br>')}</p></div>` : ''}
-                        ${data.background ? `<div class="synopsis"><p><strong>Background:</strong></p><p>${escapeHtml(data.background).replace(/\n/g, '<br>')}</p></div>` : ''}
-                    </div>
-                </div>
-            `;
-            profileOutput.innerHTML = profileHTML;
-        }
-
-        // Fungsi Baru untuk Menampilkan Info Anime
-        function displayAnimeInfo(data) {
-             console.log("Menampilkan Info Anime:", data);
-             const formatInfo = (label, value) => value ? `<p><strong>${label}:</strong> ${escapeHtml(String(value))}</p>` : `<p><strong>${label}:</strong> N/A</p>`;
-             const formatLink = (label, url, text) => url ? `<p><strong>${label}:</strong> <a href="${url}" target="_blank" rel="noopener noreferrer">${escapeHtml(text)}</a></p>` : '';
-             // Pilih URL gambar (prioritaskan jpg jika ada)
-             const imageUrl = data.images?.jpg?.image_url || data.images?.webp?.image_url || null;
-
-             const profileHTML = `
-                 <div class="info-result-card">
-                    ${imageUrl ? `<div class="info-image"><img src="${imageUrl}" alt="Gambar ${escapeHtml(data.title || '')}" loading="lazy"></div>` : ''}
-                     <div class="info-details">
-                         <h4>${escapeHtml(data.title || 'Judul Tidak Diketahui')}</h4>
-                         ${formatInfo('Tipe', data.type)}
-                         ${formatInfo('Status', data.status)}
-                         ${formatInfo('Genre', data.genres)}
-                         ${formatInfo('Skor', data.score)}
-                         ${formatInfo('Members', data.members?.toLocaleString('id-ID'))}
-                         ${formatInfo('Favorites', data.favorites?.toLocaleString('id-ID'))}
-                         ${formatLink('Link MAL', data.url, 'Lihat di MyAnimeList')}
-                         ${data.synopsis ? `<div class="synopsis"><p><strong>Sinopsis:</strong></p><p>${escapeHtml(data.synopsis).replace(/\n/g, '<br>')}</p></div>` : ''}
-                     </div>
-                 </div>
-             `;
-             profileOutput.innerHTML = profileHTML;
-         }
-
-
-        // --- Fungsi Fetch API (Tambahkan Manga & Anime) ---
-        async function fetchGithubData() { /* ... (Sama) ... */ }
-        async function fetchMlData() { /* ... (Sama) ... */ }
-        async function fetchYtMp3Data() { /* ... (Sama) ... */ }
-        async function fetchYtMp4Data() { /* ... (Sama) ... */ }
-        async function fetchRandomWaifu() { /* ... (Sama) ... */ }
-
-        // Fungsi Baru untuk Fetch Manga Info
-        async function fetchMangaInfo() {
-            if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; }
-            const query = mangaQueryInput.value.trim();
-            if (!query) { showError("Judul manga jangan kosong!"); return; }
-
-            const originalButtonText = fetchMangaButton.textContent;
-            showLoading(fetchMangaButton);
-            const apiUrl = `https://api.ryzumi.vip/api/weebs/manga-info?query=${encodeURIComponent(query)}`;
-            console.log("Memanggil API Manga Info:", apiUrl);
-
-            try {
-                const response = await fetch(apiUrl, { headers: { 'accept': 'application/json' } });
-                console.log("Respons dari API Manga Info:", response.status, response.statusText);
-
-                if (!response.ok) {
-                    let errorMsg = `Gagal cari manga (${response.status})`;
-                    try { const errorData = await response.json(); if (errorData && errorData.message) errorMsg = errorData.message; } catch(e){}
-                    throw new Error(errorMsg);
-                }
-
-                const data = await response.json();
-                console.log("Data dari API Manga Info:", data);
-
-                // API ini mungkin tidak punya flag 'success', cek data penting saja
-                if (data && data.title && data.url) {
-                     displayMangaInfo(data);
-                } else {
-                     throw new Error(data.message || "Gagal mendapatkan info manga atau format respons tidak sesuai.");
-                }
-
-            } catch (error) {
-                console.error("Gagal fetch Manga Info:", error);
-                if (error instanceof SyntaxError) { showError("Gagal memproses respons dari API Manga. Formatnya bukan JSON."); }
-                else { showError(error.message || "Gagal mencari info manga."); }
-            } finally {
-                hideLoading(fetchMangaButton, originalButtonText);
-            }
-        }
-
-        // Fungsi Baru untuk Fetch Anime Info
-        async function fetchAnimeInfo() {
-             if (!canRequest) { showError("Sabar ya, tunggu 5 detik..."); return; }
-             const query = animeQueryInput.value.trim();
-             if (!query) { showError("Judul anime jangan kosong!"); return; }
-
-             const originalButtonText = fetchAnimeButton.textContent;
-             showLoading(fetchAnimeButton);
-             const apiUrl = `https://api.ryzumi.vip/api/weebs/anime-info?query=${encodeURIComponent(query)}`;
-             console.log("Memanggil API Anime Info:", apiUrl);
-
-             try {
-                 const response = await fetch(apiUrl, { headers: { 'accept': 'application/json' } });
-                 console.log("Respons dari API Anime Info:", response.status, response.statusText);
-
-                 if (!response.ok) {
-                     let errorMsg = `Gagal cari anime (${response.status})`;
-                     try { const errorData = await response.json(); if (errorData && errorData.message) errorMsg = errorData.message; } catch(e){}
-                     throw new Error(errorMsg);
-                 }
-
-                 const data = await response.json();
-                 console.log("Data dari API Anime Info:", data);
-
-                 // Cek data penting
-                 if (data && data.title && data.url) {
-                      displayAnimeInfo(data);
-                 } else {
-                      throw new Error(data.message || "Gagal mendapatkan info anime atau format respons tidak sesuai.");
-                 }
-
-             } catch (error) {
-                 console.error("Gagal fetch Anime Info:", error);
-                 if (error instanceof SyntaxError) { showError("Gagal memproses respons dari API Anime. Formatnya bukan JSON."); }
-                 else { showError(error.message || "Gagal mencari info anime."); }
-             } finally {
-                 hideLoading(fetchAnimeButton, originalButtonText);
-             }
-         }
-
-
-        // --- Fungsi untuk Mengelola Tampilan Fitur (Update) ---
+        // --- Fungsi untuk Mengelola Tampilan Fitur ---
         function setActiveFeature(featureId) {
             if (!featureId) return;
             console.log("Switching feature to:", featureId);
             currentFeatureId = featureId;
 
-            // Update Highlight Menu
             menuItems.forEach(item => { item.classList.toggle('active-feature', item.id === featureId); });
 
-            // Tampilkan Section yang Sesuai
             let sectionToShow = null;
             if (featureId === 'menu-github') sectionToShow = githubSection;
             else if (featureId === 'menu-ml') sectionToShow = mlSection;
             else if (featureId === 'menu-ytmp3') sectionToShow = ytmp3Section;
             else if (featureId === 'menu-ytmp4') sectionToShow = ytmp4Section;
             else if (featureId === 'menu-randomwaifu') sectionToShow = randomwaifuSection;
-            else if (featureId === 'menu-mangainfo') sectionToShow = mangaInfoSection; // <-- Handle Manga
-            else if (featureId === 'menu-animeinfo') sectionToShow = animeInfoSection; // <-- Handle Anime
+            else if (featureId === 'menu-mangainfo') sectionToShow = mangaInfoSection;
+            else if (featureId === 'menu-animeinfo') sectionToShow = animeInfoSection;
 
             allInputSections.forEach(section => { section.classList.toggle('active', section === sectionToShow); });
 
-            // Reset Output & Pesan
             let placeholderText = "Pilih fitur dari menu.";
             if (featureId === 'menu-github') placeholderText = "Masukkan username GitHub.";
             else if (featureId === 'menu-ml') placeholderText = "Masukkan User ID & Zone ID Mobile Legends.";
             else if (featureId === 'menu-ytmp3') placeholderText = "Masukkan URL YouTube untuk diunduh sebagai MP3.";
             else if (featureId === 'menu-ytmp4') placeholderText = "Masukkan URL YouTube & Kualitas (opsional) untuk diunduh sebagai MP4.";
             else if (featureId === 'menu-randomwaifu') placeholderText = "Pilih tag waifu dan klik tombol.";
-            else if (featureId === 'menu-mangainfo') placeholderText = "Masukkan judul manga yang ingin dicari."; // <-- Placeholder Manga
-            else if (featureId === 'menu-animeinfo') placeholderText = "Masukkan judul anime yang ingin dicari."; // <-- Placeholder Anime
+            else if (featureId === 'menu-mangainfo') placeholderText = "Masukkan judul manga yang ingin dicari.";
+            else if (featureId === 'menu-animeinfo') placeholderText = "Masukkan judul anime yang ingin dicari.";
 
-            profileOutput.innerHTML = `<p>${placeholderText}</p>`;
+            profileOutput.innerHTML = `<p>${escapeHtml(placeholderText)}</p>`; // Escape placeholder juga
             errorMessage.style.display = 'none'; loadingMessage.style.display = 'none';
             if (menuDropdown) { menuDropdown.classList.remove('active'); }
         }
 
-        // --- Event Listeners (Tambahkan Listener untuk Manga & Anime) ---
+        // --- Event Listeners ---
         menuButton.addEventListener('click', (event) => { event.stopPropagation(); menuDropdown.classList.toggle('active'); });
         document.addEventListener('click', (event) => { if (menuButton && menuDropdown && !menuButton.contains(event.target) && !menuDropdown.contains(event.target)) { menuDropdown.classList.remove('active'); } });
         menuItems.forEach(item => { item.addEventListener('click', (event) => { event.preventDefault(); setActiveFeature(item.id); }); });
         mlInputTypeRadios.forEach(radio => { radio.addEventListener('change', (event) => { const showCombined = event.target.value === 'combined'; mlCombinedArea.classList.toggle('active', showCombined); mlSeparateArea.classList.toggle('active', !showCombined); mlCombinedInput.value = ''; mlUserIdInput.value = ''; mlZoneIdInput.value = ''; errorMessage.style.display = 'none'; }); });
-
-        // Listener Tombol Fetch (Tambahkan Manga & Anime)
         fetchGithubButton.addEventListener('click', fetchGithubData);
         fetchMlButton.addEventListener('click', fetchMlData);
         fetchYtmp3Button.addEventListener('click', fetchYtMp3Data);
         fetchYtmp4Button.addEventListener('click', fetchYtMp4Data);
         fetchWaifuButton.addEventListener('click', fetchRandomWaifu);
-        fetchMangaButton.addEventListener('click', fetchMangaInfo); // <-- Listener tombol Manga
-        fetchAnimeButton.addEventListener('click', fetchAnimeInfo); // <-- Listener tombol Anime
-
-        // Listener Tombol Enter (Tambahkan Manga & Anime)
+        fetchMangaButton.addEventListener('click', fetchMangaInfo);
+        fetchAnimeButton.addEventListener('click', fetchAnimeInfo);
         githubUsernameInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchGithubButton.click(); });
         mlCombinedInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchMlButton.click(); });
         mlUserIdInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchMlButton.click(); });
@@ -431,8 +282,8 @@
         ytmp3UrlInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchYtmp3Button.click(); });
         ytmp4UrlInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchYtmp4Button.click(); });
         ytmp4QualityInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchYtmp4Button.click(); });
-        mangaQueryInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchMangaButton.click(); }); // <-- Listener input Manga
-        animeQueryInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchAnimeButton.click(); }); // <-- Listener input Anime
+        mangaQueryInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchMangaButton.click(); });
+        animeQueryInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') fetchAnimeButton.click(); });
 
         // Inisialisasi tampilan awal
         setActiveFeature(currentFeatureId);
