@@ -1,2 +1,388 @@
-c9qQGSBM5/Q3ORT9vIvr8AUQyqq/eVm6p1tZdVNcGns=
-qYH7JA376JrJKoXZwGWnSmpO/4Xkyz82urO7hnVqJks=
+onzy@onzy-Aspire-4739:~/Documents/p/GrowServer$ tree
+.
+├── assets
+│   ├── custom-items
+│   │   ├── game
+│   │   │   └── growserver_item_wing.png
+│   │   ├── interface
+│   │   │   └── banner-transparent.png
+│   │   └── items-config.json
+│   ├── ignore
+│   │   ├── banner.png
+│   │   └── updating_items.png
+│   ├── items_info_new.json
+│   └── ssl
+│       ├── server.crt
+│       └── server.key
+├── config.json
+├── data
+│   └── data.db
+├── dist
+│   ├── config.json
+│   └── src
+│       ├── app.d.ts
+│       ├── app.js
+│       ├── command
+│       │   ├── cmds
+│       │   │   ├── ClearWorld.d.ts
+│       │   │   ├── ClearWorld.js
+│       │   │   ├── Find.d.ts
+│       │   │   ├── Find.js
+│       │   │   ├── Help.d.ts
+│       │   │   ├── Help.js
+│       │   │   ├── index.d.ts
+│       │   │   ├── index.js
+│       │   │   ├── Ping.d.ts
+│       │   │   ├── Ping.js
+│       │   │   ├── SaveServer.d.ts
+│       │   │   ├── SaveServer.js
+│       │   │   ├── Sb.d.ts
+│       │   │   ├── Sb.js
+│       │   │   ├── sdb.d.ts
+│       │   │   └── sdb.js
+│       │   ├── Command.d.ts
+│       │   └── Command.js
+│       ├── Constants.d.ts
+│       ├── Constants.js
+│       ├── core
+│       │   ├── Base.d.ts
+│       │   ├── Base.js
+│       │   ├── Peer.d.ts
+│       │   ├── Peer.js
+│       │   ├── Web.d.ts
+│       │   ├── Web.js
+│       │   ├── World.d.ts
+│       │   └── World.js
+│       ├── database
+│       │   ├── Database.d.ts
+│       │   ├── Database.js
+│       │   ├── handlers
+│       │   │   ├── Player.d.ts
+│       │   │   ├── Player.js
+│       │   │   ├── World.d.ts
+│       │   │   └── World.js
+│       │   └── schemas
+│       │       ├── Player.d.ts
+│       │       ├── Player.js
+│       │       ├── World.d.ts
+│       │       └── World.js
+│       ├── events
+│       │   ├── Connect.d.ts
+│       │   ├── Connect.js
+│       │   ├── Disconnect.d.ts
+│       │   ├── Disconnect.js
+│       │   ├── Raw.d.ts
+│       │   └── Raw.js
+│       ├── network
+│       │   ├── Action.d.ts
+│       │   ├── Action.js
+│       │   ├── actions
+│       │   │   ├── DialogReturn.d.ts
+│       │   │   ├── DialogReturn.js
+│       │   │   ├── Drop.d.ts
+│       │   │   ├── Drop.js
+│       │   │   ├── EnterGame.d.ts
+│       │   │   ├── EnterGame.js
+│       │   │   ├── index.d.ts
+│       │   │   ├── index.js
+│       │   │   ├── Input.d.ts
+│       │   │   ├── Input.js
+│       │   │   ├── JoinRequest.d.ts
+│       │   │   ├── JoinRequest.js
+│       │   │   ├── Quit.d.ts
+│       │   │   ├── Quit.js
+│       │   │   ├── QuitToExit.d.ts
+│       │   │   ├── QuitToExit.js
+│       │   │   ├── RefreshItemData.d.ts
+│       │   │   ├── RefreshItemData.js
+│       │   │   ├── Respawn.d.ts
+│       │   │   ├── Respawn.js
+│       │   │   ├── RespawnSpike.d.ts
+│       │   │   ├── RespawnSpike.js
+│       │   │   ├── StoreBuy.d.ts
+│       │   │   ├── StoreBuy.js
+│       │   │   ├── StoreHandler.d.ts
+│       │   │   ├── StoreHandler.js
+│       │   │   ├── Wrench.d.ts
+│       │   │   └── Wrench.js
+│       │   ├── dialogs
+│       │   │   ├── AreaLockEdit.d.ts
+│       │   │   ├── AreaLockEdit.js
+│       │   │   ├── ConfirmClearWorld.d.ts
+│       │   │   ├── ConfirmClearWorld.js
+│       │   │   ├── DoorEdit.d.ts
+│       │   │   ├── DoorEdit.js
+│       │   │   ├── DropEnd.d.ts
+│       │   │   ├── DropEnd.js
+│       │   │   ├── FindItem.d.ts
+│       │   │   ├── FindItemEnd.d.ts
+│       │   │   ├── FindItemEnd.js
+│       │   │   ├── FindItem.js
+│       │   │   ├── GazetteEnd.d.ts
+│       │   │   ├── GazetteEnd.js
+│       │   │   ├── index.d.ts
+│       │   │   ├── index.js
+│       │   │   ├── SignEdit.d.ts
+│       │   │   ├── SignEdit.js
+│       │   │   ├── TrashEnd.d.ts
+│       │   │   └── TrashEnd.js
+│       │   ├── Tank.d.ts
+│       │   ├── Tank.js
+│       │   ├── tanks
+│       │   │   ├── AppCheckResponsePack.d.ts
+│       │   │   ├── AppCheckResponsePack.js
+│       │   │   ├── Disconnect.d.ts
+│       │   │   ├── Disconnect.js
+│       │   │   ├── index.d.ts
+│       │   │   ├── index.js
+│       │   │   ├── ItemActiveObjectReq.d.ts
+│       │   │   ├── ItemActiveObjectReq.js
+│       │   │   ├── ItemActiveReq.d.ts
+│       │   │   ├── ItemActiveReq.js
+│       │   │   ├── SetIconState.d.ts
+│       │   │   ├── SetIconState.js
+│       │   │   ├── State.d.ts
+│       │   │   ├── State.js
+│       │   │   ├── TileActiveReq.d.ts
+│       │   │   ├── TileActiveReq.js
+│       │   │   ├── TileChangeReq.d.ts
+│       │   │   ├── TileChangeReq.js
+│       │   │   ├── TileUpdateData.d.ts
+│       │   │   └── TileUpdateData.js
+│       │   ├── Text.d.ts
+│       │   └── Text.js
+│       ├── utils
+│       │   ├── builders
+│       │   │   ├── DialogBuilder.d.ts
+│       │   │   └── DialogBuilder.js
+│       │   ├── Collection.d.ts
+│       │   ├── Collection.js
+│       │   ├── Color.d.ts
+│       │   ├── Color.js
+│       │   ├── ExtendBuffer.d.ts
+│       │   ├── ExtendBuffer.js
+│       │   ├── FloodFill.d.ts
+│       │   ├── FloodFill.js
+│       │   ├── RTTEX.d.ts
+│       │   ├── RTTEX.js
+│       │   ├── Seeders.d.ts
+│       │   ├── Seeders.js
+│       │   ├── Utils.d.ts
+│       │   ├── Utils.js
+│       │   ├── WeatherIds.d.ts
+│       │   └── WeatherIds.js
+│       ├── web
+│       │   └── routes
+│       │       ├── api.d.ts
+│       │       ├── api.js
+│       │       ├── growtopia.d.ts
+│       │       ├── growtopia.js
+│       │       ├── player.d.ts
+│       │       └── player.js
+│       └── world
+│           ├── generation
+│           │   ├── Default.d.ts
+│           │   └── Default.js
+│           ├── Tile.d.ts
+│           ├── Tile.js
+│           ├── tiles
+│           │   ├── DiceTile.d.ts
+│           │   ├── DiceTile.js
+│           │   ├── DisplayBlockTile.d.ts
+│           │   ├── DisplayBlockTile.js
+│           │   ├── DoorTile.d.ts
+│           │   ├── DoorTile.js
+│           │   ├── HeartMonitorTile.d.ts
+│           │   ├── HeartMonitorTile.js
+│           │   ├── index.d.ts
+│           │   ├── index.js
+│           │   ├── LockTile.d.ts
+│           │   ├── LockTile.js
+│           │   ├── NormalTile.d.ts
+│           │   ├── NormalTile.js
+│           │   ├── SeedTile.d.ts
+│           │   ├── SeedTile.js
+│           │   ├── SignTile.d.ts
+│           │   ├── SignTile.js
+│           │   ├── SwitcheROO.d.ts
+│           │   ├── SwitcheROO.js
+│           │   ├── WeatherTile.d.ts
+│           │   └── WeatherTile.js
+│           ├── WorldGen.d.ts
+│           └── WorldGen.js
+├── Dockerfile
+├── drizzle.config.ts
+├── eslint.config.ts
+├── LICENSE
+├── node_modules
+│   ├── @antfu
+│   │   └── ni -> ../.pnpm/@antfu+ni@25.0.0/node_modules/@antfu/ni
+│   ├── bcryptjs -> .pnpm/bcryptjs@3.0.2/node_modules/bcryptjs
+│   ├── chokidar -> .pnpm/chokidar@4.0.3/node_modules/chokidar
+│   ├── consola -> .pnpm/consola@3.4.2/node_modules/consola
+│   ├── cross-env -> .pnpm/cross-env@7.0.3/node_modules/cross-env
+│   ├── decompress -> .pnpm/decompress@4.2.1/node_modules/decompress
+│   ├── dotenv -> .pnpm/dotenv@16.5.0/node_modules/dotenv
+│   ├── drizzle-kit -> .pnpm/drizzle-kit@0.31.1/node_modules/drizzle-kit
+│   ├── drizzle-orm -> .pnpm/drizzle-orm@0.44.1_@libsql+client@0.15.8_bun-types@1.2.15_gel@2.0.2/node_modules/drizzle-orm
+│   ├── drizzle-zod -> .pnpm/drizzle-zod@0.8.2_drizzle-orm@0.44.1_@libsql+client@0.15.8_bun-types@1.2.15_gel@2.0.2__zod@3.25.48/node_modules/drizzle-zod
+│   ├── @eslint
+│   │   └── js -> ../.pnpm/@eslint+js@9.28.0/node_modules/@eslint/js
+│   ├── eslint -> .pnpm/eslint@9.28.0_jiti@2.4.2/node_modules/eslint
+│   ├── fast-xml-parser -> .pnpm/fast-xml-parser@5.2.3/node_modules/fast-xml-parser
+│   ├── growtopia.js -> .pnpm/growtopia.js@2.1.6/node_modules/growtopia.js
+│   ├── @hono
+│   │   └── node-server -> ../.pnpm/@hono+node-server@1.14.3_hono@4.7.11/node_modules/@hono/node-server
+│   ├── hono -> .pnpm/hono@4.7.11/node_modules/hono
+│   ├── imagescript -> .pnpm/imagescript@1.3.1/node_modules/imagescript
+│   ├── jiti -> .pnpm/jiti@2.4.2/node_modules/jiti
+│   ├── jsonwebtoken -> .pnpm/jsonwebtoken@9.0.2/node_modules/jsonwebtoken
+│   ├── ky -> .pnpm/ky@1.8.1/node_modules/ky
+│   ├── @libsql
+│   │   └── client -> ../.pnpm/@libsql+client@0.15.8/node_modules/@libsql/client
+│   ├── mwparser -> .pnpm/mwparser@1.3.3/node_modules/mwparser
+│   ├── nanoid -> .pnpm/nanoid@3.3.11/node_modules/nanoid
+│   ├── rimraf -> .pnpm/rimraf@6.0.1/node_modules/rimraf
+│   ├── @stylistic
+│   │   └── eslint-plugin-ts -> ../.pnpm/@stylistic+eslint-plugin-ts@4.4.0_eslint@9.28.0_jiti@2.4.2__typescript@5.8.3/node_modules/@stylistic/eslint-plugin-ts
+│   ├── tsx -> .pnpm/tsx@4.19.4/node_modules/tsx
+│   ├── type-fest -> .pnpm/type-fest@4.41.0/node_modules/type-fest
+│   ├── @types
+│   │   ├── bcryptjs -> ../.pnpm/@types+bcryptjs@2.4.6/node_modules/@types/bcryptjs
+│   │   ├── bun -> ../.pnpm/@types+bun@1.2.15/node_modules/@types/bun
+│   │   ├── decompress -> ../.pnpm/@types+decompress@4.2.7/node_modules/@types/decompress
+│   │   ├── jsonwebtoken -> ../.pnpm/@types+jsonwebtoken@9.0.9/node_modules/@types/jsonwebtoken
+│   │   └── node -> ../.pnpm/@types+node@22.15.29/node_modules/@types/node
+│   ├── typescript -> .pnpm/typescript@5.8.3/node_modules/typescript
+│   ├── typescript-eslint -> .pnpm/typescript-eslint@8.33.1_eslint@9.28.0_jiti@2.4.2__typescript@5.8.3/node_modules/typescript-eslint
+│   └── zod -> .pnpm/zod@3.25.48/node_modules/zod
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── README.md
+├── scripts
+│   ├── item-info
+│   │   ├── build.ts
+│   │   ├── parser.ts
+│   │   ├── scraper.ts
+│   │   └── template.ts
+│   ├── seeds.ts
+│   ├── setup.ts
+│   └── utils.ts
+├── src
+│   ├── app.ts
+│   ├── command
+│   │   ├── cmds
+│   │   │   ├── clearworld.ts
+│   │   │   ├── find.ts
+│   │   │   ├── help.ts
+│   │   │   ├── index.ts
+│   │   │   ├── ping.ts
+│   │   │   ├── saveserver.ts
+│   │   │   ├── sb.ts
+│   │   │   └── sdb.ts
+│   │   └── Command.ts
+│   ├── Constants.ts
+│   ├── core
+│   │   ├── Base.ts
+│   │   ├── Peer.ts
+│   │   ├── Web.ts
+│   │   └── World.ts
+│   ├── database
+│   │   ├── Database.ts
+│   │   ├── handlers
+│   │   │   ├── Player.ts
+│   │   │   └── World.ts
+│   │   └── schemas
+│   │       ├── Player.ts
+│   │       └── World.ts
+│   ├── events
+│   │   ├── Connect.ts
+│   │   ├── Disconnect.ts
+│   │   └── Raw.ts
+│   ├── network
+│   │   ├── actions
+│   │   │   ├── DialogReturn.ts
+│   │   │   ├── Drop.ts
+│   │   │   ├── EnterGame.ts
+│   │   │   ├── index.ts
+│   │   │   ├── Input.ts
+│   │   │   ├── JoinRequest.ts
+│   │   │   ├── QuitToExit.ts
+│   │   │   ├── Quit.ts
+│   │   │   ├── RefreshItemData.ts
+│   │   │   ├── RespawnSpike.ts
+│   │   │   ├── Respawn.ts
+│   │   │   ├── StoreBuy.ts
+│   │   │   ├── StoreHandler.ts
+│   │   │   └── Wrench.ts
+│   │   ├── Action.ts
+│   │   ├── dialogs
+│   │   │   ├── AreaLockEdit.ts
+│   │   │   ├── ConfirmClearWorld.ts
+│   │   │   ├── DoorEdit.ts
+│   │   │   ├── DropEnd.ts
+│   │   │   ├── FindItemEnd.ts
+│   │   │   ├── FindItem.ts
+│   │   │   ├── GazetteEnd.ts
+│   │   │   ├── index.ts
+│   │   │   ├── SignEdit.ts
+│   │   │   └── TrashEnd.ts
+│   │   ├── tanks
+│   │   │   ├── AppCheckResponsePack.ts
+│   │   │   ├── Disconnect.ts
+│   │   │   ├── index.ts
+│   │   │   ├── ItemActiveObjectReq.ts
+│   │   │   ├── ItemActiveReq.ts
+│   │   │   ├── SetIconState.ts
+│   │   │   ├── State.ts
+│   │   │   ├── TileActiveReq.ts
+│   │   │   ├── TileChangeReq.ts
+│   │   │   └── TileUpdateData.ts
+│   │   ├── Tank.ts
+│   │   └── Text.ts
+│   ├── types
+│   │   ├── commands.d.ts
+│   │   ├── events.d.ts
+│   │   ├── index.d.ts
+│   │   ├── item-pages.d.ts
+│   │   ├── misc.d.ts
+│   │   ├── peer.d.ts
+│   │   └── world.d.ts
+│   ├── utils
+│   │   ├── builders
+│   │   │   └── DialogBuilder.ts
+│   │   ├── Collection.ts
+│   │   ├── Color.ts
+│   │   ├── ExtendBuffer.ts
+│   │   ├── FloodFill.ts
+│   │   ├── RTTEX.ts
+│   │   ├── Seeders.ts
+│   │   ├── Utils.ts
+│   │   └── WeatherIds.ts
+│   ├── web
+│   │   └── routes
+│   │       ├── api.ts
+│   │       ├── growtopia.ts
+│   │       └── player.ts
+│   └── world
+│       ├── generation
+│       │   └── Default.ts
+│       ├── tiles
+│       │   ├── DiceTile.ts
+│       │   ├── DisplayBlockTile.ts
+│       │   ├── DoorTile.ts
+│       │   ├── HeartMonitorTile.ts
+│       │   ├── index.ts
+│       │   ├── LockTile.ts
+│       │   ├── NormalTile.ts
+│       │   ├── SeedTile.ts
+│       │   ├── SignTile.ts
+│       │   ├── SwitcheROO.ts
+│       │   └── WeatherTile.ts
+│       ├── Tile.ts
+│       └── WorldGen.ts
+└── tsconfig.json
+
+92 directories, 292 files
+onzy@onzy-Aspire-4739:~/Documents/p/GrowServer$ 
